@@ -15,18 +15,18 @@
 </br>
 
 ## 项目说明 [![](https://github.com/gxnas/OpenWrt_Build_x64/blob/main/personal/describes.svg)](#项目说明-)
-- 固件来源：[![Lean](https://img.shields.io/badge/Lede-Lean-red.svg?style=flat&logo=appveyor)](https://github.com/coolsnowwolf/lede) 
-- 项目使用 Github Actions 拉取 [Lean](https://github.com/coolsnowwolf/lede) 的 `Openwrt` 源码仓库进行云编译
+- 固件编译使用的源代码来自：[![Lean](https://img.shields.io/badge/Lede-Lean-red.svg?style=flat&logo=appveyor)](https://github.com/coolsnowwolf/lede) 
+- 项目使用 Github Actions 拉取 [Lean](https://github.com/coolsnowwolf/lede) 的 `Openwrt-23.05（内核版本6.6）` 源码仓库进行云编译
 - 🔴[OpenWrt_2305_x64_全功能版] 固件默认的IP地址：`192.168.18.1` 默认密码：`无密码`
 - 🔴[OpenWrt_2305_x64_主路由版] 固件默认 IP 地址：`192.168.18.1` 默认密码：`无密码`
 - 🔴[OpenWrt_2305_x64_旁路由版] 固件默认 IP 地址：`192.168.1.11` 默认密码：`无密码`
 - 🔴[OpenWrt_2305_x64_精简版] 固件默认 IP 地址：`192.168.1.11` 默认密码：`无密码`
 - 🔴[OpenWrt_2305_x64_测试版] 固件默认 IP 地址：`192.168.1.11` 默认密码：`无密码`
 -  本库编译的x86固件为squashfs格式；
--  ext4 与squashfs 格式的区别： ext4 格式的rootfs 可以扩展磁盘空间大小，而squashfs 不能。 squashfs 格式的rootfs 可以使用重置功能（恢复出厂设置），而ext4 不能。
--  默认的固件容量：Kernel=32M、rootfs=968M，请确保你的OpenWrt硬盘空间至少要有1G以上；
--  升级方法：下载好对应版本的.img.gz文件到电脑上，不需要解压，然后在你的OpenWrt菜单“系统-备份/升级”直接选择下载好的.img.gz文件上传，刷写固件；
-- 🛑******建议全新刷机可获得最佳的体验******
+-  ext4 与squashfs 格式的区别： ext4 格式的rootfs 可以扩展磁盘空间大小，而squashfs 不能。 squashfs 格式的rootfs 可以使用重置功能（恢复出厂设置），而ext4 不能；
+-  默认的固件容量：Kernel=32M、rootfs=968M，请确保安装OpenWrt的硬盘空间至少要有1G以上；
+-  OpenWrt升级方法：下载好对应版本的.img.gz文件到电脑上，不需要解压，然后在你的OpenWrt菜单“系统-备份/升级”直接选择下载好的.img.gz文件上传，刷写固件；
+- 🛑******最好不要跨大版本升级（比如1806升级到2305，或者6.1内核升级6.6），大版本更新建议采用全新安装方可获得最佳的体验。******
 
 ----
 - REPO_TOKEN密匙制作教程：https://git.io/jm.md
@@ -55,8 +55,8 @@
 | WireGuard | ✓ | ✓ | ✓ | ✓ |
 | SoftEtherVPN Status | ✓ | ✓ |   |   |
 | MultiWAN管理器 | ✓ | ✓ |   |   |
-| 释放内存 | ✓ | ✓ | ✓ | ✓ |
 | 联机用户 | ✓ | ✓ |   |   |
+| 释放内存 | ✓ | ✓ | ✓ | ✓ |
 | **【系统】** | ✓ | ✓ | ✓ | ✓ |
 | 系统 | ✓ | ✓ | ✓ | ✓ |
 | 管理权 | ✓ | ✓ | ✓ | ✓ |
@@ -66,39 +66,33 @@
 | 计划任务 | ✓ | ✓ | ✓ | ✓ |
 | 挂载点 | ✓ | ✓ | ✓ | ✓ |
 | 分区扩容 | ✓ | ✓ | ✓ | ✓ |
-| 磁盘管理 | ✓ |   |   |   |
+| 磁盘管理 | ✓ | ✓ | ✓ | ✓ |
 | 备份/升级 | ✓ | ✓ | ✓ | ✓ |
-| 定时重启 | ✓ |   |   |   |
+| 文件浏览器 | ✓ | ✓ | ✓ | ✓ |
 | 重启 | ✓ | ✓ | ✓ | ✓ |
 | 关机 | ✓ | ✓ | ✓ | ✓ |
 | **【服务】** | ✓ | ✓ | ✓ | ✓ |
 | PassWall | ✓ | ✓ | ✓ | ✓ |
-| 绕过 | ✓ |   |   |   |
+| 广告屏蔽大师Plus+ | ✓ | ✓ | ✓ |   |
 | Alist | ✓ | ✓ | ✓ |   |
 | HomeProxy | ✓ | ✓ |   |   |
 | ShadowSocksR Plus+ | ✓ | ✓ | ✓ | ✓ |
 | AdGuardHome | ✓ | ✓ | ✓ |   |
 | 应用过滤 | ✓ | ✓ |   |   |
-| DDNSTO远程控制 | ✓ | ✓ | ✓ |   |
 | MosDNS | ✓ | ✓ | ✓ |   |
 | 微信推送 | ✓ | ✓ |   |  |
 | OpenClash | ✓ | ✓ | ✓ | ✓ |
 | 解除网易云音乐播放限制 | ✓ | ✓ | ✓ |   |
 | Lucky大吉 | ✓ | ✓ |   |   |
-| 宽带监控 | ✓ |   |   |   |
 | Tailscale | ✓ | ✓ | ✓ | ✓ |
 | 网络唤醒 | ✓ | ✓ |   |   |
-| KMS服务器 | ✓ |   |   |   |
-| DDNS-GO | ✓ | ✓ |   |   |
-| Nps内网穿透 | ✓ | ✓ |   |   |
 | KMS服务器 | ✓ | ✓ | ✓ | ✓ |
-| Frpc客户端 | ✓ |   |   |   |
-| Frps服务器 | ✓ |   |   |   |
+| DDNS-GO | ✓ | ✓ |   |   |
+| frp客户端 | ✓ |   |   |   |
+| frp服务器 | ✓ |   |   |   |
 | MihomoTProxy | ✓ | ✓ |   |   |
 | PassWall2 | ✓ |   |   |   |
 | 网络共享 | ✓ | ✓ | ✓ | ✓ |
-| SmartDNS | ✓ |   |   |   |
-| Transmission | ✓ |   |   |   |
 | 终端 | ✓ | ✓ | ✓ |   |
 | udpxy | ✓ | ✓ |   |   |
 | uHTTPd | ✓ | ✓ | ✓ |   |
@@ -116,12 +110,9 @@
 | 访问限制 | ✓ | ✓ |   |   |
 | 网址过滤 | ✓ | ✓ |   |   |
 | 定时唤醒 | ✓ | ✓ |   |   |
-| **【存储】** | ✓ |   |   |   |
-| 可道云 | ✓ |   |   |   |
+| **【网络存储】** | ✓ |   |   |   |
 | USB打印服务器 | ✓ |   |   |   |
-| Rclone | ✓ |   |   |   |
 | **【VPN】** | ✓ | ✓ | ✓ |   |
-| SoftEtherVPN 服务器 | ✓ |   |   |   |
 | ZeroTier | ✓ | ✓ |   |   |
 | **【网络】** | ✓ | ✓ | ✓ | ✓ |
 | 接口 | ✓ | ✓ | ✓ | ✓ |
@@ -130,7 +121,8 @@
 | IP/MAC绑定 | ✓ | ✓ |   |   |
 | 网络诊断 | ✓ | ✓ | ✓ | ✓ |
 | 防火墙 | ✓ | ✓ | ✓ | ✓ |
-| Socat | ✓ |   |   |   |
+| 流量监控 | ✓ | ✓ |   |   |
+| Socat | ✓ | ✓ |   |   |
 | Turbo ACC 网络加速 | ✓ | ✓ | ✓ | ✓ |
 | 多线多拨 | ✓ | ✓ |   |   |
 | MultiWAN管理器 | ✓ | ✓ |   |   |

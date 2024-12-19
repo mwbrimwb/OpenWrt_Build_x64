@@ -8,7 +8,7 @@ on:
 
 jobs:
   del_releases:
-    runs-on: Ubuntu-22.04
+    runs-on: Ubuntu-24.04
     name: delete-releases-runs
     steps:
     
