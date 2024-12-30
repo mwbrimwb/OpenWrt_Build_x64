@@ -20,8 +20,8 @@ sed -i "/uci commit system/i\uci set system.@system[0].hostname='OpenWrt-GXNAS'"
 sed -i "s/hostname='.*'/hostname='OpenWrt-GXNAS'/g" ./package/base-files/files/bin/config_generate
 
 # 修改默认IP
-sed -i 's/192.168.1.1/192.168.18.1/g' package/base-files/files/bin/config_generate
-sed -i 's/192.168.1.1/192.168.18.1/g' package/base-files/luci2/bin/config_generate
+sed -i 's/192.168.1.1/192.168.1.11/g' package/base-files/files/bin/config_generate
+sed -i 's/192.168.1.1/192.168.1.11/g' package/base-files/luci2/bin/config_generate
 
 # 设置密码为空（安装固件时无需密码登陆，然后自己修改想要的密码）
 sed -i '/$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF./d' package/lean/default-settings/files/zzz-default-settings
@@ -57,8 +57,10 @@ if [ "$curl_ver" != "8.9.1" ]; then
     cp -rf $GITHUB_WORKSPACE/personal/curl feeds/packages/net/curl
 fi
 
+# 添加插件
+merge_package main https://github.com/gxnas/OpenWrt_Build_x64_Packages package/gxnas-packages  luci-app-tailscale luci-app-poweroff luci-app-onliner luci-app-partexp luci-app-store luci-app-ssr-plus luci-app-serverchan luci-app-wechatpush luci-app-tailscale luci-app-poweroff luci-app-onliner luci-app-partexp luci-app-store luci-app-ssr-plus luci-app-control-timewol luci-app-control-webrestriction luci-app-control-weburl luci-app-serverchan luci-app-wechatpush
+
 # 报错修复
-rm -rf package/feeds/gxnas/shadowsocksr-libev
 rm -rf feeds/packages/utils/v2dat
 rm -rf package/feeds/packages/adguardhome
 rm -rf feeds/luci/applications/luci-app-turboacc

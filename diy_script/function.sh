@@ -5,7 +5,7 @@ merge_package() {
 	# 参数1是分支名,参数2是库地址,参数3是所有文件下载到指定路径。
 	# 同一个仓库下载多个文件夹直接在后面跟文件名或路径，空格分开。
 	# 示例:
-	# merge_package master https://github.com/WYC-2020/openwrt-packages package/openwrt-packages luci-app-eqos luci-app-openclash luci-app-ddnsto ddnsto 
+	# merge_package main https://github.com/gxnas/OpenWrt_Build_x64_Packages package/gxnas-packages luci-app-eqos luci-app-openclash luci-app-ddnsto ddnsto 
 	# merge_package master https://github.com/lisaac/luci-app-dockerman package/lean applications/luci-app-dockerman
 	if [[ $# -lt 3 ]]; then
 		echo "Syntax error: [$#] [$*]" >&2

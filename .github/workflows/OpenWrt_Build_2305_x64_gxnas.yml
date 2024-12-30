@@ -30,6 +30,8 @@ env:
   UPLOAD_CONFIG: true
   UPLOAD_FIRMWARE: false
   UPLOAD_RELEASE: true
+  TELEGRAM_WORK_PUSH: false
+  WECHAT_WORK_PUSH: true
   TZ: Asia/Shanghai
   FILE_NAME: OpenWrt_2305_x64_gxnas
   PRODUCT_NAME: x86_64
@@ -336,6 +338,7 @@ jobs:
         echo "time=$HMS" >> $GITHUB_ENV
 
     - name: Telegram notification upload success
+      if: steps.compile.outputs.status == 'success' && env.TELEGRAM_WORK_PUSH == 'true'
       uses: appleboy/telegram-action@master
       with:
         to: ${{ secrets.TELEGRAM_TO }}
@@ -354,21 +357,27 @@ jobs:
           - 🎈 源码哈希值：${{ env.hash }}
           https://github.com/gxnas/OpenWrt_Build_x64/releases/tag/${{ env.FILE_NAME }}
 
-    - name: Push notification upload success
-      uses: xhnmt/pushplus-action@main
-      with:
-        token: ${{ secrets.PUSH_PLUS_TOKEN }}
-        title: "${{ env.FILE_NAME }}-${{ env.KERNEL }}编译完成"
-        content: |
-          ♨️ 【${{ env.FILE_NAME }}】项目编译完成 ♨️
-          - ❀  固件名称：${{ env.FILE_NAME }}-${{ env.KERNEL }}
-          - 🔴 固件大小：Kernel=32M，rootfs=968M
-          - 💻 平台架构: ${{ env.PRODUCT_NAME }}
-          - ⚽ 固件源码: ${{ env.REPO_URL }}
-          - 💝 源码分支: ${{ env.REPO_BRANCH }}
-          - 🚀 内核版本: ${{ env.KERNEL }}
-          - 🌐 默认地址：192.168.1.11
-          - 🔑 默认密码：无密码
-          - 🧊 更新时间：${{ env.date }}
-          - 🎈 源码哈希值：${{ env.hash }}
-          https://github.com/gxnas/OpenWrt_Build_x64/releases/tag/${{ env.FILE_NAME }}
+    - name: Enterprise WeChat notification upload success
+      if: env.WECHAT_WORK_PUSH == 'true'
+      run: |
+        curl -X POST "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=${{ secrets.WEBHOOK_SEND_KEY }}" \
+        -H "Content-Type: application/json" \
+        -d '{
+            "msgtype": "news",
+            "news": {
+              "articles": [
+                {
+                  "title": "♨️ 【${{ env.FILE_NAME }}】项目编译完成 ♨️",
+                  "description": "- ❀  固件名称：${{ env.FILE_NAME }}-${{ env.KERNEL }}\n
+                    - 🔴 固件大小：Kernel=32M，rootfs=968M\n
+                    - 💻 平台架构: ${{ env.PRODUCT_NAME }}\n
+                    - ⚽ 固件源码: ${{ env.REPO_URL }}\n
+                    - 💝 源码分支: ${{ env.REPO_BRANCH }}\n
+                    - 🚀 内核版本: ${{ env.KERNEL }}\n
+                    - 🌐 默认地址：192.168.1.11\n
+                    - 🧊 更新时间：${{env.release}}",
+                  "url": "https://github.com/gxnas/OpenWrt_Build_x64/releases/tag/${{ env.FILE_NAME }}"
+                }
+              ]
+            }
+          }'
