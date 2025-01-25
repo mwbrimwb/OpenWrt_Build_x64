@@ -88,8 +88,8 @@ rm -rf feeds/luci/applications/luci-app-mosdns
 git clone --depth=1 -b v5 https://github.com/sbwml/luci-app-mosdns package/luci-app-mosdns
 
 # passwall
-rm -rf feeds/luci/applications/luci-app-passwall
-merge_package main https://github.com/xiaorouji/openwrt-passwall package/custom luci-app-passwall
+# rm -rf feeds/luci/applications/luci-app-passwall
+# merge_package main https://github.com/xiaorouji/openwrt-passwall package/custom luci-app-passwall
 
 # passwall2
 # merge_package main https://github.com/xiaorouji/openwrt-passwall2 package/custom luci-app-passwall2
