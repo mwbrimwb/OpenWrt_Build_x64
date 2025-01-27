@@ -59,6 +59,7 @@ fi
 
 # 报错修复
 rm -rf package/feeds/gxnas/shadowsocksr-libev
+rm -rf package/feeds/gxnas/v2ray-plugin
 rm -rf feeds/packages/utils/v2dat
 rm -rf package/feeds/packages/adguardhome
 rm -rf feeds/luci/applications/luci-app-turboacc
@@ -88,11 +89,11 @@ rm -rf feeds/luci/applications/luci-app-mosdns
 git clone --depth=1 -b v5 https://github.com/sbwml/luci-app-mosdns package/luci-app-mosdns
 
 # passwall
-# rm -rf feeds/luci/applications/luci-app-passwall
-# merge_package main https://github.com/xiaorouji/openwrt-passwall package/custom luci-app-passwall
+rm -rf feeds/luci/applications/luci-app-passwall
+merge_package main https://github.com/xiaorouji/openwrt-passwall package/custom luci-app-passwall
 
 # passwall2
-# merge_package main https://github.com/xiaorouji/openwrt-passwall2 package/custom luci-app-passwall2
+merge_package main https://github.com/xiaorouji/openwrt-passwall2 package/custom luci-app-passwall2
 
 # openclash
 rm -rf feeds/luci/applications/luci-app-openclash
@@ -108,7 +109,6 @@ rm -rf feeds/luci/themes/luci-theme-argon
 rm -rf feeds/luci/applications/luci-app-argon-config
 git clone --depth=1 https://github.com/jerrykuku/luci-theme-argon package/luci-theme-argon
 git clone --depth=1 https://github.com/jerrykuku/luci-app-argon-config package/luci-app-argon-config
-git clone --depth=1 -b js https://github.com/lwb1978/luci-theme-kucat package/luci-theme-kucat
 
 # 更改argon主题背景
 cp -f $GITHUB_WORKSPACE/personal/bg1.jpg package/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
