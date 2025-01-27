@@ -58,10 +58,9 @@ if [ "$curl_ver" != "8.9.1" ]; then
 fi
 
 # 报错修复
-rm -rf package/feeds/gxnas/shadowsocksr-libev
-rm -rf package/feeds/gxnas/v2ray-plugin
+rm -rf feeds/kenzok8/v2ray-plugin
 rm -rf feeds/packages/utils/v2dat
-rm -rf package/feeds/packages/adguardhome
+rm -rf feeds/packages/adguardhome
 rm -rf feeds/luci/applications/luci-app-turboacc
 merge_package master https://github.com/xiangfeidexiaohuo/extra-ipk package/custom luci-app-adguardhome patch/luci-app-turboacc patch/wall-luci/lua-maxminddb patch/wall-luci/luci-app-vssr
 
