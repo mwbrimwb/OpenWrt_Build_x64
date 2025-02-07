@@ -59,6 +59,7 @@ fi
 
 # 报错修复
 rm -rf feeds/kenzok8/v2ray-plugin
+rm -rf feeds/kenzok8/open-app-filter
 rm -rf feeds/packages/utils/v2dat
 rm -rf feeds/packages/adguardhome
 rm -rf feeds/luci/applications/luci-app-turboacc
