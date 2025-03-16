@@ -80,8 +80,8 @@ merge_package master https://github.com/immortalwrt/luci package/custom applicat
 # homeproxy
 git clone --depth=1 https://github.com/muink/luci-app-homeproxy.git package/luci-app-homeproxy
 
-# mihomo
-git clone --depth=1 https://github.com/morytyann/OpenWrt-mihomo package/luci-app-mihomo
+# nikki
+git clone --depth=1 https://github.com/nikkinikki-org/OpenWrt-nikki package/luci-app-nikki
 
 # mosdns
 rm -rf feeds/packages/net/mosdns
