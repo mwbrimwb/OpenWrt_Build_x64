@@ -15,6 +15,10 @@ chmod +x $GITHUB_WORKSPACE/diy_script/function.sh
 source $GITHUB_WORKSPACE/diy_script/function.sh
 rm -rf package/custom; mkdir package/custom
 
+# 修改内核版本号
+sed -i "s/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=6.12/g" target/linux/x86/Makefile
+sed -i "s/KERNEL_TESTING_PATCHVER:=*.*/KERNEL_TESTING_PATCHVER:=6.12/g" target/linux/x86/Makefile
+
 # 修改主机名字，修改你喜欢的就行（不能纯数字或者使用中文）
 sed -i "/uci commit system/i\uci set system.@system[0].hostname='OpenWrt-GXNAS'" package/lean/default-settings/files/zzz-default-settings
 sed -i "s/hostname='.*'/hostname='OpenWrt-GXNAS'/g" ./package/base-files/files/bin/config_generate
