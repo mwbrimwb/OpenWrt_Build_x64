@@ -108,6 +108,10 @@ fi
 #make && sudo make install
 #popd
 
+## golang 为 1.23.x
+rm -rf feeds/packages/lang/golang
+git clone https://github.com/sbwml/packages_lang_golang -b 24.x feeds/packages/lang/golang
+
 # argon 主题
 #rm -rf feeds/luci/themes/luci-theme-argon
 #rm -rf feeds/luci/applications/luci-app-argon-config
