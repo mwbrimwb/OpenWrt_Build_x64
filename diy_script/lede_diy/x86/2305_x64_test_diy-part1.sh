@@ -1,7 +1,7 @@
 #!/bin/bash
 #===============================================
 # Description: OpenWrt_Build_2305_x64 DIY script part 1
-# File name: 2305_x64_all_diy-part1.sh
+# File name: 2305_x64_test_diy-part1.sh
 # Lisence: MIT
 # By: GXNAS
 #===============================================
