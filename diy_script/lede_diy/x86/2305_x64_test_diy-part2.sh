@@ -20,8 +20,8 @@ sed -i "/uci commit system/i\uci set system.@system[0].hostname='OpenWrt-GXNAS'"
 sed -i "s/hostname='.*'/hostname='OpenWrt-GXNAS'/g" ./package/base-files/files/bin/config_generate
 
 # 修改默认IP
-sed -i 's/192.168.1.1/192.168.18.1/g' package/base-files/files/bin/config_generate
-sed -i 's/192.168.1.1/192.168.18.1/g' package/base-files/luci2/bin/config_generate
+sed -i 's/192.168.1.1/192.168.1.11/g' package/base-files/files/bin/config_generate
+sed -i 's/192.168.1.1/192.168.1.11/g' package/base-files/luci2/bin/config_generate
 
 # 设置密码为空（安装固件时无需密码登陆，然后自己修改想要的密码）
 sed -i '/$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF./d' package/lean/default-settings/files/zzz-default-settings
