@@ -78,10 +78,10 @@ rm -rf feeds/luci/applications/{luci-app-frpc,luci-app-frps,luci-app-hd-idle,luc
 merge_package master https://github.com/immortalwrt/luci package/custom applications/luci-app-filebrowser applications/luci-app-syncdial applications/luci-app-eqos applications/luci-app-nps applications/luci-app-nfs applications/luci-app-frpc applications/luci-app-frps applications/luci-app-hd-idle applications/luci-app-adblock applications/luci-app-socat
 
 # homeproxy
-git clone --depth=1 https://github.com/muink/luci-app-homeproxy.git package/luci-app-homeproxy
+git clone --depth=1 https://github.com/immortalwrt/homeproxy.git package/luci-app-homeproxy
 
-# mihomo
-git clone --depth=1 https://github.com/morytyann/OpenWrt-mihomo package/luci-app-mihomo
+# nikki
+git clone --depth=1 https://github.com/nikkinikki-org/OpenWrt-nikki.git package/luci-app-nikki
 
 # mosdns
 rm -rf feeds/packages/net/mosdns
