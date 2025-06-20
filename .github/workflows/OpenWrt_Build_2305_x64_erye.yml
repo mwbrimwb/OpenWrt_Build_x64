@@ -315,7 +315,7 @@ jobs:
         body: |
           ### 📒 固件信息
           - ⚽ 固件名称：${{ env.FILE_NAME }}-${{ env.KERNEL }}
-          - 🔴 固件大小：Kernel=32M，rootfs=968M
+          - 🔴 固件大小：Kernel=64M，rootfs=4032M
           - 💻 平台架构: ${{ env.PRODUCT_NAME }}
           - 🌻 固件源码: ${{ env.REPO_URL }}
           - 💝 源码分支: ${{ env.REPO_BRANCH }}
