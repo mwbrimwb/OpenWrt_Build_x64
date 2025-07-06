@@ -74,8 +74,8 @@ mv kwrt-packages/luci-app-adbyby-plus package/luci-app-adbyby-plus
 rm -rf kwrt-packages
 
 # frpc frps
-rm -rf feeds/luci/applications/{luci-app-frpc,luci-app-frps,luci-app-hd-idle,luci-app-adblock,luci-app-filebrowser}
-merge_package master https://github.com/immortalwrt/luci package/custom applications/luci-app-filebrowser applications/luci-app-syncdial applications/luci-app-eqos applications/luci-app-nps applications/luci-app-nfs applications/luci-app-frpc applications/luci-app-frps applications/luci-app-hd-idle applications/luci-app-adblock applications/luci-app-socat
+rm -rf feeds/luci/applications/{luci-app-frpc,luci-app-frps,luci-app-hd-idle,luci-app-adblock,luci-app-filebrowser,luci-app-openlist}
+merge_package master https://github.com/immortalwrt/luci package/custom applications/luci-app-openlist applications/luci-app-filebrowser applications/luci-app-syncdial applications/luci-app-frpc applications/luci-app-frps applications/luci-app-socat
 
 # homeproxy
 git clone --depth=1 https://github.com/immortalwrt/homeproxy.git package/luci-app-homeproxy
