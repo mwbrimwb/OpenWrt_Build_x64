@@ -1,5 +1,0 @@
-src-git packages https://github.com/coolsnowwolf/packages;master
-src-git packages https://mirrors.ustc.edu.cn/openwrt/packages.git;openwrt-23.05
-src-git luci https://mirrors.ustc.edu.cn/openwrt/luci.git;openwrt-23.05
-src-git routing https://mirrors.ustc.edu.cn/openwrt/routing.git;openwrt-23.05
-src-git telephony https://mirrors.ustc.edu.cn/openwrt/telephony.git;openwrt-23.05
