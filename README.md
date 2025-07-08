@@ -76,7 +76,7 @@
 | **【服务】** | ✓ | ✓ | ✓ | ✓ |
 | PassWall | ✓ | ✓ | ✓ | ✓ |
 | 广告屏蔽大师Plus+ | ✓ | ✓ | ✓ |   |
-| Alist | ✓ | ✓ | ✓ |   |
+| OpenList | ✓ | ✓ |   |   |
 | HomeProxy | ✓ | ✓ |   |   |
 | ShadowSocksR Plus+ | ✓ | ✓ | ✓ | ✓ |
 | AdGuardHome | ✓ | ✓ | ✓ |   |
