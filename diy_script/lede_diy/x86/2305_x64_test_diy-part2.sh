@@ -62,8 +62,16 @@ rm -rf feeds/kenzok8/v2ray-plugin
 rm -rf feeds/kenzok8/open-app-filter
 rm -rf feeds/packages/utils/v2dat
 rm -rf feeds/packages/adguardhome
+#rm -rf feeds/luci/applications/luci-app-turboacc
+#merge_package master https://github.com/xiangfeidexiaohuo/extra-ipk package/custom luci-app-adguardhome patch/luci-app-turboacc patch/wall-luci/lua-maxminddb patch/wall-luci/luci-app-vssr
+merge_package master https://github.com/xiangfeidexiaohuo/extra-ipk package/custom luci-app-adguardhome patch/wall-luci/lua-maxminddb patch/wall-luci/luci-app-vssr
+
+#luci-app-turboacc
 rm -rf feeds/luci/applications/luci-app-turboacc
-merge_package master https://github.com/xiangfeidexiaohuo/extra-ipk package/custom luci-app-adguardhome patch/luci-app-turboacc patch/wall-luci/lua-maxminddb patch/wall-luci/luci-app-vssr
+git clone https://github.com/chenmozhijin/turboacc
+mkdir -p package/luci-app-turboacc
+mv turboacc/luci-app-turboacc package/luci-app-turboacc
+rm -rf turboacc
 
 # luci-app-adbyby-plus
 rm -rf feeds/packages/net/adbyby-plus
