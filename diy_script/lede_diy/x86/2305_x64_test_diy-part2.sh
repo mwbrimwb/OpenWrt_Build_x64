@@ -33,7 +33,7 @@ sed -i 's/${g}.*/${a}${b}${c}${d}${e}${f}${hydrid}/g' package/lean/autocore/file
 sed -i 's/\/bin\/login/\/bin\/login -f root/' feeds/packages/utils/ttyd/files/ttyd.config
 
 # 默认 shell 为 bash
-sed -i 's/\/bin\/ash/\/bin\/bash/g' package/base-files/files/etc/passwd
+# sed -i 's/\/bin\/ash/\/bin\/bash/g' package/base-files/files/etc/passwd
 
 # samba解除root限制
 sed -i 's/invalid users = root/#&/g' feeds/packages/net/samba4/files/smb.conf.template
