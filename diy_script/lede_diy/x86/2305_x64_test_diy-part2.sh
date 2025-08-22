@@ -32,9 +32,6 @@ sed -i 's/${g}.*/${a}${b}${c}${d}${e}${f}${hydrid}/g' package/lean/autocore/file
 # 设置ttyd免帐号登录
 sed -i 's/\/bin\/login/\/bin\/login -f root/' feeds/packages/utils/ttyd/files/ttyd.config
 
-# 默认 shell 为 bash
-# sed -i 's/\/bin\/ash/\/bin\/bash/g' package/base-files/files/etc/passwd
-
 # samba解除root限制
 sed -i 's/invalid users = root/#&/g' feeds/packages/net/samba4/files/smb.conf.template
 
@@ -62,8 +59,6 @@ rm -rf feeds/kenzok8/v2ray-plugin
 rm -rf feeds/kenzok8/open-app-filter
 rm -rf feeds/packages/utils/v2dat
 rm -rf feeds/packages/adguardhome
-#rm -rf feeds/luci/applications/luci-app-turboacc
-#merge_package master https://github.com/xiangfeidexiaohuo/extra-ipk package/custom luci-app-adguardhome patch/luci-app-turboacc patch/wall-luci/lua-maxminddb patch/wall-luci/luci-app-vssr
 merge_package master https://github.com/xiangfeidexiaohuo/extra-ipk package/custom luci-app-adguardhome patch/wall-luci/lua-maxminddb patch/wall-luci/luci-app-vssr
 
 #luci-app-turboacc
@@ -100,14 +95,9 @@ git clone --depth=1 -b v5 https://github.com/sbwml/luci-app-mosdns package/luci-
 rm -rf feeds/luci/applications/luci-app-passwall
 merge_package main https://github.com/xiaorouji/openwrt-passwall package/custom luci-app-passwall
 
-# passwall2
-# merge_package main https://github.com/xiaorouji/openwrt-passwall2 package/custom luci-app-passwall2
-
 # openclash
 rm -rf feeds/luci/applications/luci-app-openclash
 merge_package master https://github.com/vernesong/OpenClash package/custom luci-app-openclash
-# merge_package dev https://github.com/vernesong/OpenClash package/custom luci-app-openclash
-# 编译 po2lmo (如果有po2lmo可跳过)
 pushd package/custom/luci-app-openclash/tools/po2lmo
 make && sudo make install
 popd
@@ -143,6 +133,9 @@ find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_U
 
 ./scripts/feeds update -a
 ./scripts/feeds install -a
+
+# 兜底修复 fstools jffs2reset 报错
+sed -i 's/{mount_root,jffs2reset}/mount_root/' package/system/fstools/Makefile || true
 
 echo "========================="
 echo " DIY2 配置完成……"
