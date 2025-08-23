@@ -15,7 +15,7 @@ chmod +x $GITHUB_WORKSPACE/diy_script/function.sh
 source $GITHUB_WORKSPACE/diy_script/function.sh
 rm -rf package/custom; mkdir package/custom
 
-# 修改主机名字，修改你喜欢的就行（不能纯数字或者使用中文）
+# 修改主机名字
 sed -i "/uci commit system/i\uci set system.@system[0].hostname='OpenWrt-GXNAS'" package/lean/default-settings/files/zzz-default-settings
 sed -i "s/hostname='.*'/hostname='OpenWrt-GXNAS'/g" ./package/base-files/files/bin/config_generate
 
@@ -23,7 +23,7 @@ sed -i "s/hostname='.*'/hostname='OpenWrt-GXNAS'/g" ./package/base-files/files/b
 sed -i 's/192.168.1.1/192.168.1.11/g' package/base-files/files/bin/config_generate
 sed -i 's/192.168.1.1/192.168.1.11/g' package/base-files/luci2/bin/config_generate
 
-# 设置密码为空（安装固件时无需密码登陆，然后自己修改想要的密码）
+# 设置密码为空
 sed -i '/$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF./d' package/lean/default-settings/files/zzz-default-settings
 
 # 调整 x86 型号只显示 CPU 型号
@@ -61,7 +61,11 @@ rm -rf feeds/packages/utils/v2dat
 rm -rf feeds/packages/adguardhome
 merge_package master https://github.com/xiangfeidexiaohuo/extra-ipk package/custom luci-app-adguardhome patch/wall-luci/lua-maxminddb patch/wall-luci/luci-app-vssr
 
-#luci-app-turboacc
+# 修复 sing-box 编译失败（替换成最新源码）
+rm -rf feeds/packages/net/sing-box
+git clone --depth=1 https://github.com/SagerNet/sing-box.git feeds/packages/net/sing-box
+
+# luci-app-turboacc
 rm -rf feeds/luci/applications/luci-app-turboacc
 git clone https://github.com/chenmozhijin/turboacc
 mkdir -p package/luci-app-turboacc
@@ -133,9 +137,6 @@ find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_U
 
 ./scripts/feeds update -a
 ./scripts/feeds install -a
-
-# 兜底修复 fstools jffs2reset 报错
-sed -i 's/{mount_root,jffs2reset}/mount_root/' package/system/fstools/Makefile || true
 
 echo "========================="
 echo " DIY2 配置完成……"
