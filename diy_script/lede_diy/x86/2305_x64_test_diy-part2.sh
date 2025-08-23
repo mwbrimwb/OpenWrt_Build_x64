@@ -15,15 +15,15 @@ chmod +x $GITHUB_WORKSPACE/diy_script/function.sh
 source $GITHUB_WORKSPACE/diy_script/function.sh
 rm -rf package/custom; mkdir package/custom
 
-# 修改主机名字
+# 修改主机名字，修改你喜欢的就行（不能纯数字或者使用中文）
 sed -i "/uci commit system/i\uci set system.@system[0].hostname='OpenWrt-GXNAS'" package/lean/default-settings/files/zzz-default-settings
 sed -i "s/hostname='.*'/hostname='OpenWrt-GXNAS'/g" ./package/base-files/files/bin/config_generate
 
 # 修改默认IP
-sed -i 's/192.168.1.1/192.168.1.11/g' package/base-files/files/bin/config_generate
-sed -i 's/192.168.1.1/192.168.1.11/g' package/base-files/luci2/bin/config_generate
+sed -i 's/192.168.1.1/192.168.18.1/g' package/base-files/files/bin/config_generate
+sed -i 's/192.168.1.1/192.168.18.1/g' package/base-files/luci2/bin/config_generate
 
-# 设置密码为空
+# 设置密码为空（安装固件时无需密码登陆，然后自己修改想要的密码）
 sed -i '/$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF./d' package/lean/default-settings/files/zzz-default-settings
 
 # 调整 x86 型号只显示 CPU 型号
@@ -31,6 +31,9 @@ sed -i 's/${g}.*/${a}${b}${c}${d}${e}${f}${hydrid}/g' package/lean/autocore/file
 
 # 设置ttyd免帐号登录
 sed -i 's/\/bin\/login/\/bin\/login -f root/' feeds/packages/utils/ttyd/files/ttyd.config
+
+# 默认 shell 为 bash
+sed -i 's/\/bin\/ash/\/bin\/bash/g' package/base-files/files/etc/passwd
 
 # samba解除root限制
 sed -i 's/invalid users = root/#&/g' feeds/packages/net/samba4/files/smb.conf.template
@@ -59,13 +62,11 @@ rm -rf feeds/kenzok8/v2ray-plugin
 rm -rf feeds/kenzok8/open-app-filter
 rm -rf feeds/packages/utils/v2dat
 rm -rf feeds/packages/adguardhome
+#rm -rf feeds/luci/applications/luci-app-turboacc
+#merge_package master https://github.com/xiangfeidexiaohuo/extra-ipk package/custom luci-app-adguardhome patch/luci-app-turboacc patch/wall-luci/lua-maxminddb patch/wall-luci/luci-app-vssr
 merge_package master https://github.com/xiangfeidexiaohuo/extra-ipk package/custom luci-app-adguardhome patch/wall-luci/lua-maxminddb patch/wall-luci/luci-app-vssr
 
-# 修复 sing-box 编译失败（替换成最新源码）
-rm -rf feeds/packages/net/sing-box
-git clone --depth=1 https://github.com/SagerNet/sing-box.git feeds/packages/net/sing-box
-
-# luci-app-turboacc
+#luci-app-turboacc
 rm -rf feeds/luci/applications/luci-app-turboacc
 git clone https://github.com/chenmozhijin/turboacc
 mkdir -p package/luci-app-turboacc
@@ -99,9 +100,14 @@ git clone --depth=1 -b v5 https://github.com/sbwml/luci-app-mosdns package/luci-
 rm -rf feeds/luci/applications/luci-app-passwall
 merge_package main https://github.com/xiaorouji/openwrt-passwall package/custom luci-app-passwall
 
+# passwall2
+# merge_package main https://github.com/xiaorouji/openwrt-passwall2 package/custom luci-app-passwall2
+
 # openclash
 rm -rf feeds/luci/applications/luci-app-openclash
 merge_package master https://github.com/vernesong/OpenClash package/custom luci-app-openclash
+# merge_package dev https://github.com/vernesong/OpenClash package/custom luci-app-openclash
+# 编译 po2lmo (如果有po2lmo可跳过)
 pushd package/custom/luci-app-openclash/tools/po2lmo
 make && sudo make install
 popd
