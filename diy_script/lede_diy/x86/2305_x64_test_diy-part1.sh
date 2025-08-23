@@ -59,6 +59,3 @@ elif [ "$str1" = "6.6" ];then
 fi
 exit 0
 EOF
-
-# 修复 fstools 安装 jffs2reset 报错的问题
-sed -i 's/{mount_root,jffs2reset}/mount_root/' package/system/fstools/Makefile
