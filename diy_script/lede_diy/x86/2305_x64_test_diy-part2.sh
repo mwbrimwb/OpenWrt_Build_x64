@@ -112,13 +112,10 @@ git clone --depth=1 https://github.com/jerrykuku/luci-app-argon-config package/l
 git clone --depth=1 -b js https://github.com/lwb1978/luci-theme-kucat package/luci-theme-kucat
 cp -f $GITHUB_WORKSPACE/personal/bg1.jpg package/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
 
-# =========================
 # ⚠️ 修复 sing-box 编译失败
 rm -rf feeds/kenzok8/sing-box
-rm -rf feeds/packages/net/sing-box
-git clone --depth=1 -b v1.12.3 https://github.com/SagerNet/sing-box.git feeds/packages/net/sing-box
-sed -i 's/with_ech,//g; s/,with_ech//g; s/with_ech//g' feeds/packages/net/sing-box/Makefile
-# =========================
+rm -rf packages/luci-app-sing-box
+git clone --depth=1 https://github.com/SagerNet/sing-box.git packages/luci-app-sing-box
 
 # 显示编译时间
 sed -i "s/DISTRIB_REVISION='R[0-9]\+\.[0-9]\+\.[0-9]\+'/DISTRIB_REVISION='@R$build_date'/g" package/lean/default-settings/files/zzz-default-settings
