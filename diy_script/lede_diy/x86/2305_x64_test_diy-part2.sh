@@ -112,11 +112,6 @@ git clone --depth=1 https://github.com/jerrykuku/luci-app-argon-config package/l
 git clone --depth=1 -b js https://github.com/lwb1978/luci-theme-kucat package/luci-theme-kucat
 cp -f $GITHUB_WORKSPACE/personal/bg1.jpg package/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
 
-# ⚠️ 修复 sing-box 编译失败
-rm -rf feeds/kenzok8/sing-box
-rm -rf packages/luci-app-sing-box
-git clone --depth=1 https://github.com/SagerNet/sing-box.git packages/luci-app-sing-box
-
 # 显示编译时间
 sed -i "s/DISTRIB_REVISION='R[0-9]\+\.[0-9]\+\.[0-9]\+'/DISTRIB_REVISION='@R$build_date'/g" package/lean/default-settings/files/zzz-default-settings
 sed -i 's/LEDE/OpenWrt_2305_x64_测试版 by GXNAS build/g' package/lean/default-settings/files/zzz-default-settings
@@ -138,6 +133,26 @@ find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_U
 
 ./scripts/feeds update -a
 ./scripts/feeds install -a
+
+# =========================
+# 修复 sing-box 编译失败
+# =========================
+
+# 删除 feeds 中旧的 sing-box
+rm -rf feeds/packages/net/sing-box
+rm -rf feeds/kenzok8/sing-box
+
+# 拉取最新 sing-box 源码
+git clone --depth=1 https://github.com/SagerNet/sing-box.git feeds/packages/net/sing-box
+
+# 清理 build_dir 缓存，避免残留 stub.go
+rm -rf build_dir/target-*/sing-box-*
+rm -rf staging_dir/target-*/root-*/pkginfo/sing-box.*
+rm -rf tmp/info/.packageinfo-*sing-box*
+
+# 移除已废弃的 with_ech 和 with_reality_server 编译标签
+sed -i 's/with_ech,//g; s/,with_ech//g; s/with_ech//g' feeds/packages/net/sing-box/Makefile
+sed -i 's/with_reality_server,//g; s/,with_reality_server//g; s/with_reality_server//g' feeds/packages/net/sing-box/Makefile
 
 echo "========================="
 echo " DIY2 配置完成……"
