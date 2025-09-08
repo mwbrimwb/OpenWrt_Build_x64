@@ -117,22 +117,22 @@ sed -i "s/DISTRIB_REVISION='R[0-9]\+\.[0-9]\+\.[0-9]\+'/DISTRIB_REVISION='@R$bui
 sed -i 's/LEDE/OpenWrt_2305_x64_测试版 by GXNAS build/g' package/lean/default-settings/files/zzz-default-settings
 
 # 修改右下角脚本版本信息
-echo "修改前的package/luci-theme-argon/luasrc/view/themes/argon/footer.htm的内容是："
-cat package/luci-theme-argon/luasrc/view/themes/argon/footer.htm
-echo "修改前的package/luci-theme-argon/luasrc/view/themes/argon/footer.htm内容显示完毕！"
-sed -i 's/<a class=\"luci-link\" href=\"https:\/\/github.com\/openwrt\/luci\" target=\"_blank\">Powered by <%= ver.luciname %> (<%= ver.luciversion %>)<\/a>/OpenWrt_2305_x64_测试版 by GXNAS build @R'"$build_date"'/' package/luci-theme-argon/luasrc/view/themes/argon/footer.htm
-sed -i 's|<a href="https://github.com/jerrykuku/luci-theme-argon" target="_blank">ArgonTheme <%# vPKG_VERSION %></a>|<a class="luci-link" href="https://wp.gxnas.com" target="_blank">🌐固件编译者：【GXNAS博客】</a>|' package/luci-theme-argon/luasrc/view/themes/argon/footer.htm
-sed -i 's|<%= ver.distversion %>|<a href="https://d.gxnas.com" target="_blank">👆点这里下载最新版本</a>|' package/luci-theme-argon/luasrc/view/themes/argon/footer.htm
-echo "修改后的package/luci-theme-argon/luasrc/view/themes/argon/footer.htm的内容是："
-cat package/luci-theme-argon/luasrc/view/themes/argon/footer.htm
-echo "修改后的package/luci-theme-argon/luasrc/view/themes/argon/footer.htm内容显示完毕！"
-echo "修改前的package/luci-theme-argon/luasrc/view/themes/argon/footer_login.htm的内容是："
-cat package/luci-theme-argon/luasrc/view/themes/argon/footer_login.htm
-echo "修改前的package/luci-theme-argon/luasrc/view/themes/argon/footer_login.htm内容显示完毕！"
-sed -i "/<a class=\"luci-link\"/d; /<a href=\"https:\/\/github.com\/jerrykuku\/luci-theme-argon\"/d; s|<%= ver.distversion %>|OpenWrt_2305_x64_测试版 by GXNAS build @R$build_date|" package/luci-theme-argon/luasrc/view/themes/argon/footer_login.htm
-echo "修改后的package/luci-theme-argon/luasrc/view/themes/argon/footer_login.htm的内容是："
-cat package/luci-theme-argon/luasrc/view/themes/argon/footer_login.htm
-echo "修改后的package/luci-theme-argon/luasrc/view/themes/argon/footer_login.htm内容显示完毕！"
+echo "修改前的package/luci-theme-argon/ucode/template/themes/argon/footer.ut的内容是："
+cat package/luci-theme-argon/ucode/template/themes/argon/footer.ut
+echo "修改前的package/luci-theme-argon/ucode/template/themes/argon/footer.ut内容显示完毕！"
+sed -i 's/<a class=\"luci-link\" href=\"https:\/\/github.com\/openwrt\/luci\" target=\"_blank\">Powered by <%= ver.luciname %> (<%= ver.luciversion %>)<\/a>/OpenWrt_2305_x64_测试版 by GXNAS build @R'"$build_date"'/' package/luci-theme-argon/ucode/template/themes/argon/footer.ut
+sed -i 's|<a href="https://github.com/jerrykuku/luci-theme-argon" target="_blank">ArgonTheme <%# vPKG_VERSION %></a>|<a class="luci-link" href="https://wp.gxnas.com" target="_blank">🌐固件编译者：【GXNAS博客】</a>|' package/luci-theme-argon/ucode/template/themes/argon/footer.ut
+sed -i 's|<%= ver.distversion %>|<a href="https://d.gxnas.com" target="_blank">👆点这里下载最新版本</a>|' package/luci-theme-argon/ucode/template/themes/argon/footer.ut
+echo "修改后的package/luci-theme-argon/ucode/template/themes/argon/footer.ut的内容是："
+cat package/luci-theme-argon/ucode/template/themes/argon/footer.ut
+echo "修改后的package/luci-theme-argon/ucode/template/themes/argon/footer.ut内容显示完毕！"
+echo "修改前的package/luci-theme-argon/ucode/template/themes/argon/footer_login.ut的内容是："
+cat package/luci-theme-argon/ucode/template/themes/argon/footer_login.ut
+echo "修改前的package/luci-theme-argon/ucode/template/themes/argon/footer_login.ut内容显示完毕！"
+sed -i "/<a class=\"luci-link\"/d; /<a href=\"https:\/\/github.com\/jerrykuku\/luci-theme-argon\"/d; s|<%= ver.distversion %>|OpenWrt_2305_x64_测试版 by GXNAS build @R$build_date|" package/luci-theme-argon/ucode/template/themes/argon/footer_login.ut
+echo "修改后的package/luci-theme-argon/ucode/template/themes/argon/footer_login.ut的内容是："
+cat package/luci-theme-argon/ucode/template/themes/argon/footer_login.ut
+echo "修改后的package/luci-theme-argon/ucode/template/themes/argon/footer_login.ut内容显示完毕！"
 
 # 修改欢迎banner
 cp -f $GITHUB_WORKSPACE/personal/banner package/base-files/files/etc/banner
