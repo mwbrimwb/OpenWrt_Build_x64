@@ -38,7 +38,7 @@ env:
 
 jobs:
   CheckRepo:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     env:
       REPO_URL_Lede: https://github.com/coolsnowwolf/lede
       REPO_BRANCH_Lede: master
