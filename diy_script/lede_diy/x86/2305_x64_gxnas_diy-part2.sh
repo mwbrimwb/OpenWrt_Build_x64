@@ -62,8 +62,16 @@ rm -rf feeds/kenzok8/v2ray-plugin
 rm -rf feeds/kenzok8/open-app-filter
 rm -rf feeds/packages/utils/v2dat
 rm -rf feeds/packages/adguardhome
+#rm -rf feeds/luci/applications/luci-app-turboacc
+#merge_package master https://github.com/xiangfeidexiaohuo/extra-ipk package/custom luci-app-adguardhome patch/luci-app-turboacc patch/wall-luci/lua-maxminddb patch/wall-luci/luci-app-vssr
+merge_package master https://github.com/xiangfeidexiaohuo/extra-ipk package/custom luci-app-adguardhome patch/wall-luci/lua-maxminddb patch/wall-luci/luci-app-vssr
+
+#luci-app-turboacc
 rm -rf feeds/luci/applications/luci-app-turboacc
-merge_package master https://github.com/xiangfeidexiaohuo/extra-ipk package/custom luci-app-adguardhome patch/luci-app-turboacc patch/wall-luci/lua-maxminddb patch/wall-luci/luci-app-vssr
+git clone https://github.com/chenmozhijin/turboacc
+mkdir -p package/luci-app-turboacc
+mv turboacc/luci-app-turboacc package/luci-app-turboacc
+rm -rf turboacc
 
 # luci-app-adbyby-plus
 rm -rf feeds/packages/net/adbyby-plus
@@ -77,11 +85,8 @@ rm -rf kwrt-packages
 rm -rf feeds/luci/applications/{luci-app-frpc,luci-app-frps,luci-app-hd-idle,luci-app-adblock,luci-app-filebrowser}
 merge_package master https://github.com/immortalwrt/luci package/custom applications/luci-app-filebrowser applications/luci-app-syncdial applications/luci-app-eqos applications/luci-app-nps applications/luci-app-nfs applications/luci-app-frpc applications/luci-app-frps applications/luci-app-hd-idle applications/luci-app-adblock applications/luci-app-socat
 
-# homeproxy
-git clone --depth=1 https://github.com/muink/luci-app-homeproxy.git package/luci-app-homeproxy
-
-# mihomo
-git clone --depth=1 https://github.com/morytyann/OpenWrt-mihomo package/luci-app-mihomo
+# nikki
+git clone --depth=1 https://github.com/nikkinikki-org/OpenWrt-nikki.git package/luci-app-nikki
 
 # mosdns
 rm -rf feeds/packages/net/mosdns
@@ -119,10 +124,12 @@ sed -i "s/DISTRIB_REVISION='R[0-9]\+\.[0-9]\+\.[0-9]\+'/DISTRIB_REVISION='@R$bui
 sed -i 's/LEDE/OpenWrt_2305_x64_旁路由版 by GXNAS build/g' package/lean/default-settings/files/zzz-default-settings
 
 # 修改右下角脚本版本信息
-sed -i 's/<a class=\"luci-link\" href=\"https:\/\/github.com\/openwrt\/luci\" target=\"_blank\">Powered by <%= ver.luciname %> (<%= ver.luciversion %>)<\/a>/OpenWrt_2305_x64_旁路由版 by GXNAS build @R'"$build_date"'/' package/luci-theme-argon/luasrc/view/themes/argon/footer.htm
-sed -i 's|<a href="https://github.com/jerrykuku/luci-theme-argon" target="_blank">ArgonTheme <%# vPKG_VERSION %></a>|<a class="luci-link" href="https://wp.gxnas.com" target="_blank">🌐固件编译者：【GXNAS博客】</a>|' package/luci-theme-argon/luasrc/view/themes/argon/footer.htm
-sed -i 's|<%= ver.distversion %>|<a href="https://d.gxnas.com" target="_blank">👆点这里下载最新版本</a>|' package/luci-theme-argon/luasrc/view/themes/argon/footer.htm
-sed -i "/<a class=\"luci-link\"/d; /<a href=\"https:\/\/github.com\/jerrykuku\/luci-theme-argon\"/d; s|<%= ver.distversion %>|OpenWrt_2305_x64_旁路由版 by GXNAS build @R$build_date|" package/luci-theme-argon/luasrc/view/themes/argon/footer_login.htm
+sed -i 's/<a class=\"luci-link\" href=\"https:\/\/github.com\/openwrt\/luci\" target=\"_blank\">Powered by {{ version.luciname }} ({{ version.luciversion }})<\/a>/OpenWrt_2305_x64_旁路由版 by GXNAS build @R'"$build_date"'/' package/luci-theme-argon/ucode/template/themes/argon/footer.ut
+sed -i 's|<a href="https://github.com/jerrykuku/luci-theme-argon" target="_blank">ArgonTheme {# vPKG_VERSION #}</a>|<a class="luci-link" href="https://wp.gxnas.com" target="_blank">🌐固件编译者：【GXNAS博客】</a>|' package/luci-theme-argon/ucode/template/themes/argon/footer.ut
+sed -i 's|{{ version.distname }} {{ version.distversion }}-{{ version.distrevision }}|<a href="https://d.gxnas.com" target="_blank">👆点这里下载最新版本</a>|' package/luci-theme-argon/ucode/template/themes/argon/footer.ut
+
+# 修改登录页版本信息
+sed -i "/luci-link/d; s|<a href=\"https://github.com/jerrykuku/luci-theme-argon\" target=\"_blank\">ArgonTheme {# vPKG_VERSION #}</a>|OpenWrt_2305_x64_旁路由版 by GXNAS build @R$build_date|" package/luci-theme-argon/ucode/template/themes/argon/footer_login.ut
 
 # 修改欢迎banner
 cp -f $GITHUB_WORKSPACE/personal/banner package/base-files/files/etc/banner

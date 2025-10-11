@@ -1,30 +1,30 @@
 #===============================================
-# Description: OpenWrt_Build_2305_x64_test
+# Description: OpenWrt_Build_2305_x64_erye
 # Lisence: MIT
 # By：GXNAS
 #===============================================
 
-name: OpenWrt_Build_2305_x64_test
+name: OpenWrt_Build_2305_x64_erye
 
 on:
   repository_dispatch:
   workflow_dispatch:
     inputs:
       checkupdates66:
-        description: '启动OpenWrt_Build_2305_x64_test编译'
+        description: '启动OpenWrt_Build_2305_x64_erye编译'
         required: true
         default: 'true'
-  #schedule:
-    #- cron: 0 2 * * 5
+  schedule:
+    - cron: 0 2 * * 5
 
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
   FEEDS_CONF: feeds_config/lede23.feeds.conf.default
-  CONFIG_FILE: config/lede_config/2305_x64_test.config
+  CONFIG_FILE: config/lede_config/2305_x64_erye.config
   CONFIGS: config/lede_config
-  DIY_P1_SH: diy_script/lede_diy/x86/2305_x64_test_diy-part1.sh
-  DIY_P2_SH: diy_script/lede_diy/x86/2305_x64_test_diy-part2.sh
+  DIY_P1_SH: diy_script/lede_diy/x86/2305_x64_erye_diy-part1.sh
+  DIY_P2_SH: diy_script/lede_diy/x86/2305_x64_erye_diy-part2.sh
   CLASH_KERNEL: amd64
   UPLOAD_BIN_DIR: false
   UPLOAD_CONFIG: true
@@ -33,16 +33,16 @@ env:
   TELEGRAM_WORK_PUSH: false
   WECHAT_WORK_PUSH: true
   TZ: Asia/Shanghai
-  FILE_NAME: OpenWrt_2305_x64_test
+  FILE_NAME: OpenWrt_2305_x64_erye
   PRODUCT_NAME: x86_64
 
 jobs:
   CheckRepo:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     env:
       REPO_URL_Lede: https://github.com/coolsnowwolf/lede
       REPO_BRANCH_Lede: master
-      REPO_PATH_Lede : "2305_x64_test"
+      REPO_PATH_Lede : "2305_x64_erye"
     outputs:
       output: ${{ steps.outputunifreq.outputs.unifreq }}
     steps:
@@ -51,20 +51,20 @@ jobs:
       run: |
         git clone --depth 1 $REPO_URL_Lede -b $REPO_BRANCH_Lede $REPO_PATH_Lede
         cd $REPO_PATH_Lede
-        echo "commitHash_2305_x64_test=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+        echo "commitHash_2305_x64_erye=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
         cd
 
     - name: Show Commit Head and Combination Heads
       id: combHeader
       run: |
-        echo "commitHash_2305_x64_test: ${{ steps.getHash.outputs.commitHash_2305_x64_test }}"
+        echo "commitHash_2305_x64_erye: ${{ steps.getHash.outputs.commitHash_2305_x64_erye }}"
 
     - name: Compare Commit Hash
       id: cacheHash
       uses: actions/cache@main
       with:
-        path: .commitHash_2305_x64_test
-        key: HEAD-${{ steps.getHash.outputs.commitHash_2305_x64_test }}
+        path: .commitHash_2305_x64_erye
+        key: HEAD-${{ steps.getHash.outputs.commitHash_2305_x64_erye }}
 
     - name: Set output for next job
       id: outputunifreq
@@ -75,9 +75,9 @@ jobs:
     - name: Save New Commit Hash
       if: steps.cacheHash.outputs.cache-hit != 'true'
       run: |
-        echo ${{ steps.getHash.outputs.commitHash_2305_x64_test }} | tee .commitHash_2305_x64_test
+        echo ${{ steps.getHash.outputs.commitHash_2305_x64_erye }} | tee .commitHash_2305_x64_erye
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
-  Build_2305_x64_test:
+  Build_2305_x64_erye:
     needs: [CheckRepo]
     if: ${{ needs.CheckRepo.outputs.output != 'hello' || github.event.inputs.checkupdates66 == 'true'}}
     runs-on: ubuntu-22.04
@@ -279,13 +279,9 @@ jobs:
     - name: Delete files
       run: |
         cd openwrt
-        if [ -f "rename.sh" ]; then
-          bash rename.sh
-        fi
-        if [ -f "wget/open_dev_md5" ]; then
-          Kernel=`grep "_uefi.img.gz" wget/open_dev_md5 | cut -d - -f 2 | cut -d _ -f 2 `
-          echo "KERNEL=$Kernel" >> $GITHUB_ENV
-        fi
+        bash  rename.sh
+        Kernel=`grep "_uefi.img.gz" wget/open_dev_md5 | cut -d - -f 2 | cut -d _ -f 2 `
+        echo "KERNEL=$Kernel" >> $GITHUB_ENV
 
     - name: Organize files
       id: organize
@@ -319,16 +315,16 @@ jobs:
         body: |
           ### 📒 固件信息
           - ⚽ 固件名称：${{ env.FILE_NAME }}-${{ env.KERNEL }}
-          - 🔴 固件大小：Kernel=32M，rootfs=968M
+          - 🔴 固件大小：Kernel=64M，rootfs=4032M
           - 💻 平台架构: ${{ env.PRODUCT_NAME }}
           - 🌻 固件源码: ${{ env.REPO_URL }}
           - 💝 源码分支: ${{ env.REPO_BRANCH }}
           - 🚀 内核版本: ${{ env.KERNEL }}
-          - 🌐 默认地址：192.168.1.11
+          - 🌐 默认地址：192.168.10.1
           - 🔑 默认密码：无密码
           - 🧊 更新时间：${{ env.date }}
           - 🎈 源码哈希值：${{ env.hash }}
-        artifacts: ${{ env.FIRMWARE }}/*uefi*
+        artifacts: ${{ env.FIRMWARE }}/*
 
     - name: Completion time 
       run: |
@@ -350,12 +346,12 @@ jobs:
         message: |
           ♨️ 【${{ env.FILE_NAME }}】项目编译完成 ♨️
           - ❀  固件名称：${{ env.FILE_NAME }}-${{ env.KERNEL }}
-          - 🔴 固件大小：Kernel=32M，rootfs=968M
+          - 🔴 固件大小：Kernel=64M，rootfs=4032M
           - 💻 平台架构: ${{ env.PRODUCT_NAME }}
           - ⚽ 固件源码: ${{ env.REPO_URL }}
           - 💝 源码分支: ${{ env.REPO_BRANCH }}
           - 🚀 内核版本: ${{ env.KERNEL }}
-          - 🌐 默认地址：192.168.1.11
+          - 🌐 默认地址：192.168.10.1
           - 🔑 默认密码：无密码
           - 🧊 更新时间：${{ env.date }}
           - 🎈 源码哈希值：${{ env.hash }}
@@ -373,12 +369,12 @@ jobs:
                 {
                   "title": "♨️ 【${{ env.FILE_NAME }}】项目编译完成 ♨️",
                   "description": "- ❀  固件名称：${{ env.FILE_NAME }}-${{ env.KERNEL }}\n
-                    - 🔴 固件大小：Kernel=32M，rootfs=968M\n
+                    - 🔴 固件大小：Kernel=64M，rootfs=4032M\n
                     - 💻 平台架构: ${{ env.PRODUCT_NAME }}\n
                     - ⚽ 固件源码: ${{ env.REPO_URL }}\n
                     - 💝 源码分支: ${{ env.REPO_BRANCH }}\n
                     - 🚀 内核版本: ${{ env.KERNEL }}\n
-                    - 🌐 默认地址：192.168.1.11\n
+                    - 🌐 默认地址：192.168.10.1\n
                     - 🧊 更新时间：${{env.release}}",
                   "url": "https://github.com/gxnas/OpenWrt_Build_x64/releases/tag/${{ env.FILE_NAME }}"
                 }
