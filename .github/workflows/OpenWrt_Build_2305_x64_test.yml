@@ -279,9 +279,13 @@ jobs:
     - name: Delete files
       run: |
         cd openwrt
-        bash  rename.sh
-        Kernel=`grep "_uefi.img.gz" wget/open_dev_md5 | cut -d - -f 2 | cut -d _ -f 2 `
-        echo "KERNEL=$Kernel" >> $GITHUB_ENV
+        if [ -f "rename.sh" ]; then
+          bash rename.sh
+        fi
+        if [ -f "wget/open_dev_md5" ]; then
+          Kernel=`grep "_uefi.img.gz" wget/open_dev_md5 | cut -d - -f 2 | cut -d _ -f 2 `
+          echo "KERNEL=$Kernel" >> $GITHUB_ENV
+        fi
 
     - name: Organize files
       id: organize
