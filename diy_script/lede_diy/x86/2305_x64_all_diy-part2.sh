@@ -140,6 +140,9 @@ find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/include\ \.\
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_URL:=\@GHREPO/PKG_SOURCE_URL:=https:\/\/github\.com/g' {}
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_URL:=\@GHCODELOAD/PKG_SOURCE_URL:=https:\/\/codeload\.github\.com/g' {}
 
+# 修复luci-app-ssr-plus错误
+sed -i 's/+nping//g' package/feeds/kenzok8/luci-app-ssr-plus/Makefile || true
+
 ./scripts/feeds update -a
 ./scripts/feeds install -a
 
