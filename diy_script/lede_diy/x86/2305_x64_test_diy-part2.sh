@@ -109,6 +109,9 @@ pushd package/custom/luci-app-openclash/tools/po2lmo
 make && sudo make install
 popd
 
+# natmap
+git clone --depth=1 https://github.com/kkstone/luci-app-natmap package/luci-app-natmap
+
 # argon 主题
 rm -rf feeds/luci/themes/luci-theme-argon
 rm -rf feeds/luci/applications/luci-app-argon-config
