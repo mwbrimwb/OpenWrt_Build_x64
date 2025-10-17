@@ -110,7 +110,8 @@ make && sudo make install
 popd
 
 # natmap
-git clone --depth=1 https://github.com/heiher/natmap.git package/luci-app-natmap
+#git clone --depth=1 https://github.com/heiher/natmap.git package/luci-app-natmap
+git clone --depth 1 --branch master --single-branch --no-checkout https://github.com/muink/openwrt-natmapt.git package/natmapt
 
 # argon 主题
 rm -rf feeds/luci/themes/luci-theme-argon
