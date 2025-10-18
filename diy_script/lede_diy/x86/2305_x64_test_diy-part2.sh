@@ -110,7 +110,9 @@ make && sudo make install
 popd
 
 # natmap
-git clone --depth=1 https://github.com/kkstone/luci-app-natmap package/luci-app-natmap
+# 替换旧的 natmap feed
+sed -i '/natmap/d' feeds.conf.default
+echo "src-git natmap https://github.com/heiher/natmap.git" >> feeds.conf.default
 
 # argon 主题
 rm -rf feeds/luci/themes/luci-theme-argon
