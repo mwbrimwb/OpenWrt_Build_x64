@@ -20,8 +20,8 @@ sed -i "/uci commit system/i\uci set system.@system[0].hostname='OpenWrt-GXNAS'"
 sed -i "s/hostname='.*'/hostname='OpenWrt-GXNAS'/g" ./package/base-files/files/bin/config_generate
 
 # 修改默认IP
-sed -i 's/192.168.1.1/192.168.18.1/g' package/base-files/files/bin/config_generate
-sed -i 's/192.168.1.1/192.168.18.1/g' package/base-files/luci2/bin/config_generate
+sed -i 's/192.168.1.1/192.168.1.11/g' package/base-files/files/bin/config_generate
+sed -i 's/192.168.1.1/192.168.1.11/g' package/base-files/luci2/bin/config_generate
 
 # 设置密码为空（安装固件时无需密码登陆，然后自己修改想要的密码）
 sed -i '/$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF./d' package/lean/default-settings/files/zzz-default-settings
@@ -110,9 +110,9 @@ make && sudo make install
 popd
 
 # natmap
-#git clone --depth=1 https://github.com/heiher/natmap.git package/luci-app-natmap
-git clone --depth 1 --branch master --single-branch --no-checkout https://github.com/muink/openwrt-natmapt.git package/natmapt
-git clone --depth 1 --branch master --single-branch --no-checkout https://github.com/muink/luci-app-natmapt.git package/luci-app-natmapt
+# 替换旧的 natmap feed
+sed -i '/natmap/d' feeds.conf.default
+echo "src-git natmap https://github.com/heiher/natmap.git" >> feeds.conf.default
 
 # argon 主题
 rm -rf feeds/luci/themes/luci-theme-argon
